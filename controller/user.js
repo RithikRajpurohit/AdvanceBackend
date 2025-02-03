@@ -46,3 +46,44 @@ export const register =async (req,res)=>
         
     }
 }
+
+export const login = async (req,res)=>
+{
+       try {
+        const { email, password} = req.body;
+
+        const user = await User.findOne({email});
+  
+        if(!user)
+        {
+           res.status(403).json(
+              {
+                  message:"User is not present in the database"
+              }
+          )
+        }
+         const ispasswordcorrect = await bcrypt.compare(password , user.password);
+         if(!ispasswordcorrect)
+         {
+             res.status(403).json(
+              {
+                  message:"Password is incorrect"
+              }
+            )
+         }
+  
+         return  res.status(200).json(
+          {
+              message:"Welcome back buddy"
+          }
+         )
+        
+       } catch (error) {
+           console.log(error);
+           
+       }
+     
+
+
+
+}

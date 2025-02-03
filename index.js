@@ -4,6 +4,7 @@ import dotenv from "dotenv"
 import bodyParser from "body-parser";
 import connectDB from "./db/database.js";
 import router from "./Routes/user.js";
+import userTodo from "./Routes/todo.js"
 const app = express();
 
 dotenv.config();
@@ -17,6 +18,7 @@ connectDB();
 
 
 app.use("/home",router)
+app.use("/api/v1/todo",userTodo)
 
 
 
